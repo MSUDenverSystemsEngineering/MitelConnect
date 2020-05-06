@@ -163,7 +163,7 @@ Try {
 		[string]$installPhase = 'Pre-Uninstallation'
 
 		## Show Welcome Message, close Internet Explorer with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps 'iexplore' -CloseAppsCountdown 60
+		Show-InstallationWelcome -CloseApps 'iexplore,outlook,mitel' -CloseAppsCountdown 60
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -183,7 +183,13 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
-
+		#Uninstall Mitel Presenter
+		$exitCode = Execute-MSI -Action 'Uninstall' -Path "{CDC73529-6324-4B64-A2F8-D789D47D9174}"
+		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
+		
+		#Uninstall Mitel Connect
+		$exitCode = Execute-MSI -Action 'Uninstall' -Path "{F67FA324-4FBA-43F7-94CA-3CAB5F7BD9B4}"
+		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		##*===============================================
 		##* POST-UNINSTALLATION
