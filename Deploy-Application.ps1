@@ -186,7 +186,7 @@ Try {
 		#Uninstall Mitel Presenter
 		$exitCode = Execute-MSI -Action 'Uninstall' -Path "{CDC73529-6324-4B64-A2F8-D789D47D9174}"
 		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
-		
+
 		#Uninstall Mitel Connect
 		$exitCode = Execute-MSI -Action 'Uninstall' -Path "{F67FA324-4FBA-43F7-94CA-3CAB5F7BD9B4}"
 		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
